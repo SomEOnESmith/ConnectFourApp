@@ -1,8 +1,15 @@
-import { DROP_CELL } from "./actionTypes";
+import { DROP_CELL, WIN_VERTICAL } from "./actionTypes";
 
 export const dropCell = cell => {
   return {
     type: DROP_CELL,
+    payload: cell
+  };
+};
+
+export const winVertical = cell => {
+  return {
+    type: WIN_VERTICAL,
     payload: cell
   };
 };
