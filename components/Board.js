@@ -1,11 +1,10 @@
 import React from "react";
-import { Container, Text, Grid, Col, Row } from "native-base";
-import { View } from "react-native";
+import { Container, Grid, Header } from "native-base";
 import { connect } from "react-redux";
 import Column from "./Column";
 
 const Board = props => {
-  let components = [
+  const components = [
     props.elements.slice(0, 6),
     props.elements.slice(6, 12),
     props.elements.slice(12, 18),
@@ -15,13 +14,14 @@ const Board = props => {
     props.elements.slice(36, 42)
   ];
 
-  let columnArray = components.map((col, index) => {
+  const columnArray = components.map((col, index) => {
     return <Column key={index} col={col} />;
   });
   return (
-    <View>
-      <Grid>{columnArray}</Grid>
-    </View>
+    <Container>
+      <Header />
+      <Grid style={{ margin: 30, marginTop: 220 }}>{columnArray}</Grid>
+    </Container>
   );
 };
 
