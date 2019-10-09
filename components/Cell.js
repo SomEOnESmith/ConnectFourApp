@@ -12,14 +12,12 @@ import { dropCell } from "../redux/actions/board";
 
 const Cell = props => {
   return (
-    <View>
-      <Button transparent onPress={() => props.dropCell(props.cell)}>
-        <Image
-          style={{ width: 50, height: 50 }}
-          source={require("../assets/images/connectEmpty.png")}
-        />
-      </Button>
-    </View>
+    <Button transparent onPress={() => props.dropCell(props.cell)}>
+      <Image
+        style={{ width: 50, height: 50 }}
+        source={require("../assets/images/connectEmpty.png")}
+      />
+    </Button>
   );
 };
 
