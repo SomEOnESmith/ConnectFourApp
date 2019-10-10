@@ -1,10 +1,10 @@
 import {
   // CHANGE_PLAYER,
-  WIN_CONDITION,
   DISPLAY_WINNER,
   DROP_CELL,
   CHANGE_CELL,
-  RESET_BOARD
+  RESET_BOARD,
+  WIN_VERTICAL
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -19,8 +19,26 @@ export default (state = initialState, { type, payload }) => {
   switch (type) {
     // case CHANGE_PLAYER:
     //   return { ...state, ...payload };
-    case WIN_CONDITION:
-      return { ...state, ...payload };
+    case WIN_VERTICAL:
+      const verCell = payload;
+      let bottomCell = verCell.id - (verCell.id % 6) + 5;
+      let counter = 0;
+      let count = 0;
+      let color = "";
+      state.player ? (color = "yellow") : (color = "red");
+      while (count < 6) {
+        if (color === state.elements[bottomCell - count].color) {
+          counter++;
+          if (counter === 4) {
+            return {
+              ...state,
+              win: true
+            };
+          }
+        } else counter = 0;
+        count++;
+      }
+      return { ...state };
     case DISPLAY_WINNER:
       return { ...state, ...payload };
     case DROP_CELL:
@@ -38,15 +56,12 @@ export default (state = initialState, { type, payload }) => {
           else temp.color = "yellow";
           newPlayer = !state.player;
           return { ...state, elements: [...state.elements], player: newPlayer };
-          // console.log(this.winCondition(this.state.elements[row]));
         }
-        console.log("TCL: elements[row]", state.elements[row]);
         offset -= 1;
         row = top + offset;
         if (row === top - 1) {
           break;
         }
-        // this.winCondition(this.state.elements[row]); ===> I think this will be in ComponentDidUpdate
       }
     case CHANGE_CELL:
       return { ...state, ...payload };
